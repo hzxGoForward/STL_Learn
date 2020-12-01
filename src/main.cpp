@@ -1,7 +1,7 @@
-#include "chrono/chrono.cpp"
+#include <../include/chrono.h>
 
 int main(){
 
-    hzx::test();
+    hzx_chrono::test();
     return 0;
 }
