@@ -16,6 +16,7 @@ namespace hzx_regex
         std::string data = "XML tag: <tag-name>the value</tag-name>the value";
         std::cout << "data:                       " << data << "\n\n";
         
+        // smatch表示c++11 中string类型的匹配，还有cmatch，表示c类型字符串的匹配。
         std::smatch m;  
         bool found = std::regex_search(data, m, std::regex("<(.*)>(.*)</\\1>\\2"));
         out(found);
@@ -31,14 +32,27 @@ namespace hzx_regex
             std::cout<<"m.prefix().str():    "<<m.prefix().str()<<std::endl;
             std::cout<<"m.suffix().str():    "<<m.suffix().str()<<std::endl;
             std::cout<<std::endl;
+        
+            for (int i = 0; i < m.size(); ++i){
+                std::cout<<"m[" << i <<"].str(): "<<m[i].str()<<std::endl;
+                std::cout << "m.str(" << i << "): " << m.str(i) << std::endl;
+                std::cout << "m.position(" << i << "): " << m.position(i)
+                << std::endl;
+            }
+            std::cout<<std::endl;
+
+
+            // iterating over all matches (using iterators):
+            std::cout<<"matches: "<<std::endl;
+            for(auto pos = m.begin(); pos!=m.end(); ++pos){
+                std::cout<<" "<<*pos<<" ";
+                std::cout<<"(lenght: "<<pos->length()<<")"<<std::endl;
+            }
+        
+        
         }
 
-        // iterating over all matches (using iterators):
-        std::cout<<"matches: "<<std::endl;
-        for(auto pos = m.begin(); pos!=m.end(); ++pos){
-            std::cout<<" "<<*pos<<" ";
-            std::cout<<"(lenght: "<<pos->length()<<")"<<std::endl;
-        }
+
 
     }
 
