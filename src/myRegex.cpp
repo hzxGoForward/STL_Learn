@@ -1,9 +1,11 @@
-#include "../include/myRegex.h"
+﻿#include "myRegex.h"
 #include <string>
 #include <regex>
 #include <iostream>
 #include <iomanip>
-
+#ifdef _MSC_BUILD
+#pragma execution_character_set("utf-8")
+#endif
 namespace hzx_regex
 {
 
@@ -17,7 +19,7 @@ namespace hzx_regex
         std::string data = "XML tag: <tag-name>the value</tag-name>the value";
         std::cout << "data:                       " << data << "\n\n";
 
-        // smatch表示c++11 中string类型的匹配，还有cmatch，表示c类型字符串的匹配。
+        //
         std::smatch m;
         bool found = std::regex_search(data, m, std::regex("<(.*)>(.*)</\\1>\\2"));
         out(found);
@@ -61,7 +63,7 @@ namespace hzx_regex
         bool found = std::regex_match(str, reg1);
         out(found);
 
-        // ()表示在括号中的作为组,本身并不作为通配符，\\1表示引用前面第一个()括号内容，表示与之相同
+        // () represents group, itself is not a symblole. \\1 represent to refer the first ().
         std::regex reg2("<(.*)>.*</\\1>");
         found = std::regex_match(str, reg2);
         out(found);

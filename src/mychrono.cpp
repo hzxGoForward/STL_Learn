@@ -1,19 +1,23 @@
-#include <chrono>
+﻿#include <chrono>
 #include <iostream>
 #include <iomanip>
 #include <ratio>
 #include <ctime>
 #include <string>
-#include <../include/chrono.h>
+#include "mychrono.h"
 
 namespace hzx_chrono
 {
 
     std::string ToString(const std::chrono::system_clock::time_point &tp)
     {
+        // 下面两句代码是long long格式的时间和time_point互相转换
         const std::time_t t = std::chrono::system_clock::to_time_t(tp);
-        // std::string ts = std::ctime(&t);
-        std::string ts = std::asctime(gmtime(&t));
+        const auto now = std::chrono::system_clock::now();
+
+        // const std::chrono::time_point tp = std::chrono::system_clock::from_time_t(t);
+        std::string ts = std::ctime(&t);
+
         ts.resize(ts.size() - 1);
         return ts;
     }
@@ -32,16 +36,14 @@ namespace hzx_chrono
         std::cout << "\nsteady_clock: " << std::endl;
         hzx_chrono::printClockData<std::chrono::steady_clock>();
 
-        
-
         std::chrono::system_clock::time_point tp;
         std::cout << "epoch: " << hzx_chrono::ToString(tp) << std::endl;
 
-        tp = std::chrono::system_clock::time_point::min();
-        std::cout << "min: " << hzx_chrono::ToString(tp) << std::endl;
+        //tp = std::chrono::system_clock::time_point::min();
+        //std::cout << "min: " << hzx_chrono::ToString(tp) << std::endl;
 
-        tp = std::chrono::system_clock::time_point::max();
-        std::cout << "max: " << hzx_chrono::ToString(tp) << std::endl;
+        //tp = std::chrono::system_clock::time_point::max();
+        //std::cout << "max: " << hzx_chrono::ToString(tp) << std::endl;
 
         tp = std::chrono::system_clock::now();
         std::cout << "now: " << hzx_chrono::ToString(tp) << std::endl;
